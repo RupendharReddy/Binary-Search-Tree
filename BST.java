@@ -178,6 +178,29 @@ class BSTimplementation {
             return false;
         }
     }
+    protected void inOrder(Node root)
+    {
+        if(root==null)return ;
+        inOrder(root.left);
+        System.out.print(root.data+" -> ");
+        inOrder(root.right);
+    }
+    protected void preOrder(Node root)
+    {
+        if(root==null)return ;
+        System.out.print(root.data+" -> ");
+        preOrder(root.left);
+        preOrder(root.right);
+    }
+    protected void postOrder(Node root)
+    {
+        if(root==null)return ;
+        postOrder(root.left);
+        postOrder(root.right);
+        System.out.print(root.data+" -> ");
+    }
+    
+
 }
 
 public class BST {
@@ -194,6 +217,7 @@ public class BST {
         bst.insert(12);
         bst.insert(11);
         bst.insert(13);
+        bst.inOrder(bst.root);
         System.out.println(bst.search(10));
         System.out.println(bst.delete(10));
         System.out.println(bst.search(10));
