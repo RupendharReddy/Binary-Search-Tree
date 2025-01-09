@@ -124,9 +124,59 @@ class BSTimplementation {
             return false;
         }
     }
-
     protected boolean search(int target) {
         return search(root, target);
+    }
+
+    protected boolean delete(int target) {
+        try {
+            if(root==null)return false;   //............ if root null 
+            Node parNode=null;
+            Node curNode=root;
+            while (curNode!=null && curNode.data!=target) {
+                parNode=curNode;
+                if(target<curNode.data)curNode=curNode.left;
+                else curNode=curNode.right;
+            }
+            if(curNode.left==null && curNode.right==null){    //.... if root has no child
+                if(curNode==root){
+                    root=null;
+                }else if(parNode.left==curNode){
+                    parNode.left=null;
+                }else{
+                    parNode.right=null;
+                }
+            }
+            else if(curNode.left==null || curNode.right==null)//......If root has one child 
+            {
+                Node tempNode=(curNode.left!=null)?curNode.left:curNode.right;
+                if(curNode==root){
+                    // root=null;
+                    root=tempNode;
+                }
+                if(parNode.left==tempNode){
+                    parNode.left=tempNode;
+                }
+                else{
+                    parNode.right=tempNode;
+                }
+            }
+            else          //..........if root has two child
+            {
+                Node parentSuccNode=curNode;
+                Node succNode=curNode.right;
+                while (succNode.left!=null) {
+                    parentSuccNode=succNode;
+                    succNode=succNode.left;
+                }
+                curNode.data=succNode.data;
+                if(parentSuccNode.left==succNode)parentSuccNode.left=succNode.right;
+                else parentSuccNode.right=succNode.right;
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
 
@@ -144,8 +194,11 @@ public class BST {
         bst.insert(12);
         bst.insert(11);
         bst.insert(13);
-        // bst.InOrder(bst.root);
-        System.out.println(bst.search(12));
+        System.out.println(bst.search(10));
+        System.out.println(bst.delete(10));
+        System.out.println(bst.search(10));
+        System.out.println(bst.search(5));
+        System.out.println(bst.search(15));
         // System.out.println(bst.search(10)+"- 10");
         // System.out.println(bst.search(5)+"- 5");
         // System.out.println(bst.search(15)+"- 15");
