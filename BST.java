@@ -82,6 +82,8 @@ Conversion
     Convert a BST to a Min-Heap
     Convert a BST to a Max-Heap
  */
+import java.util.LinkedList;
+import java.util.Queue;
 
 class Node {
     int data;
@@ -199,7 +201,17 @@ class BSTimplementation {
         postOrder(root.right);
         System.out.print(root.data+" -> ");
     }
-    
+    protected void levelOrder(Node root){
+        if(root==null) return;
+        Queue<Node> q=new LinkedList<Node>();
+        q.add(root);
+        while(!q.isEmpty()){
+            Node currNode=q.poll();
+            System.out.print(currNode.data+" -> ");
+            if(currNode.left!=null)q.add(currNode.left);
+            if(currNode.right!=null)q.add(currNode.right);
+        }
+    }
 
 }
 
@@ -217,12 +229,20 @@ public class BST {
         bst.insert(12);
         bst.insert(11);
         bst.insert(13);
+        // bst.inOrder(bst.root);
+        // System.out.println(bst.search(10));
+        // System.out.println(bst.delete(10));
+        // System.out.println(bst.search(10));
+        // System.out.println(bst.search(5));
+        // System.out.println(bst.search(15));
         bst.inOrder(bst.root);
-        System.out.println(bst.search(10));
-        System.out.println(bst.delete(10));
-        System.out.println(bst.search(10));
-        System.out.println(bst.search(5));
-        System.out.println(bst.search(15));
+        System.out.println("inorder");
+        bst.preOrder(bst.root);
+        System.out.println("preorder");
+        bst.postOrder(bst.root);
+        System.out.println("postorder");
+        bst.levelOrder(bst.root);
+        System.out.println("levelorder");
         // System.out.println(bst.search(10)+"- 10");
         // System.out.println(bst.search(5)+"- 5");
         // System.out.println(bst.search(15)+"- 15");
